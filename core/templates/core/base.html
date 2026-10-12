@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestão de Projetos</title>
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'listar_projetos' %}">
+        Projetos
+    </a>
+
+    <a href="{% url 'listar_tarefas' %}">
+        Tarefas
+    </a>
+</nav>
+
+<hr>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
