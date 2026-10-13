@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+
 from .models import Projeto
+from .forms import ProjetoForm
 
 
 def listar_projetos(request):
@@ -28,7 +31,7 @@ def editar_projeto(request, pk):
         messages.success(request, 'Projeto atualizado com sucesso!')
         return redirect('listar_projetos')
 
-    return render(request, 'projetos/form.html', {
+    return render(request, 'core/form.html', {
         'form': form,
         'titulo': 'Editar Projeto'
     })
@@ -42,6 +45,6 @@ def excluir_projeto(request, pk):
         messages.success(request, 'Projeto excluído com sucesso!')
         return redirect('listar_projetos')
 
-    return render(request, 'projetos/excluir.html', {
+    return render(request, 'core/excluir.html', {
         'projeto': projeto
     })
