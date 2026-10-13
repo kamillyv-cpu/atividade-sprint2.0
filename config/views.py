@@ -18,3 +18,30 @@ def criar_projeto(request):
     return render(request, 'projetos/form.html', {
         'form': form
     })
+
+def editar_projeto(request, pk):
+    projeto = get_object_or_404(Projeto, pk=pk)
+
+    form = ProjetoForm(
+        request.POST or None,
+        instance=projeto
+    )
+
+    if form.is_valid():
+        form.save()
+        return redirect('listar_projetos')
+
+    return render(request, 'projetos/form.html', {
+        'form': form
+    })
+
+def excluir_projeto(request, pk):
+    projeto = get_object_or_404(Projeto, pk=pk)
+
+    if request.method == 'POST':
+        projeto.delete()
+        return redirect('listar_projetos')
+
+    return render(request,
+                 'projetos/excluir.html',
+                 {'projeto': projeto})
