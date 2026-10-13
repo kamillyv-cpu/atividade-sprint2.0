@@ -1,160 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Gestão de Projetos</title>
+{% extends 'base.html' %}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+{% block title %}Projetos{% endblock %}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
-            padding: 40px;
-        }
+{% block content %}
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+<h2>Projetos cadastrados</h2>
 
+<a class="botao" href="{% url 'criar_projeto' %}">
+    + Novo Projeto
+</a>
 
-        h1 {
-            color: #1f4e79;
-            margin-bottom: 25px;
-            font-size: 32px;
-        }
+{% if projetos %}
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Data de início</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
 
-        .novo-projeto {
-            display: inline-block;
-            background-color: #1f4e79;
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 7px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            transition: 0.2s;
-        }
+    <tbody>
+        {% for projeto in projetos %}
+        <tr>
+            <td>{{ projeto.nome }}</td>
+            <td>{{ projeto.descricao|truncatechars:60 }}</td>
+            <td>{{ projeto.data_inicio|date:"d/m/Y" }}</td>
+            <td>
+                <div class="acoes">
+                    <a class="botao"
+                       href="{% url 'editar_projeto' projeto.pk %}">
+                        Editar
+                    </a>
 
-        .novo-projeto:hover {
-            background-color: #163a5c;
-        }
+                    <a class="botao perigo"
+                       href="{% url 'excluir_projeto' projeto.pk %}">
+                        Excluir
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-       
-        hr {
-            border: none;
-            border-top: 1px solid #ddd;
-            margin: 20px 0;
-        }
+{% else %}
+<p>Nenhum projeto cadastrado ainda.</p>
+{% endif %}
 
-        /* Card do projeto */
-        .projeto {
-            background-color: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #1f4e79;
-        }
-
-        .projeto h2 {
-            color: #1f4e79;
-            margin-bottom: 12px;
-            font-size: 22px;
-        }
-
-        .projeto p {
-            margin-bottom: 12px;
-            line-height: 1.5;
-            color: #555;
-        }
-
-        .data {
-            font-size: 14px;
-            color: #777;
-        }
-
-       
-        .acoes {
-            margin-top: 20px;
-        }
-
-        .editar,
-        .excluir {
-            display: inline-block;
-            padding: 9px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-right: 8px;
-            transition: 0.2s;
-        }
-
-        .editar {
-            background-color: #e8f1f8;
-            color: #1f4e79;
-        }
-
-        .editar:hover {
-            background-color: #d4e4f0;
-        }
-
-        .excluir {
-            background-color: #fbeaea;
-            color: #c0392b;
-        }
-
-        .excluir:hover {
-            background-color: #f5d2d0;
-        }
-
-        /* Mensagem quando não existem projetos */
-        .vazio {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            color: #777;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            body {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 26px;
-            }
-
-            .projeto {
-                padding: 20px;
-            }
-
-            .editar,
-            .excluir {
-                margin-bottom: 8px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-
-        <h1>Lista de Projetos</h1>
-
-        <a href="{% url 'criar_projeto' %}" class="novo-projeto">
-            + Novo Projeto
-        </a>
-
-        <hr>
+{% endblock %}
