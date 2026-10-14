@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+
+<h2>{{ titulo }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for campo in form %}
+        <p>
+            {{ campo.label_tag }}<br>
+            {{ campo }}
+            {% for erro in campo.errors %}
+                <span class="erro">{{ erro }}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
+    <button class="botao" type="submit">Salvar</button>
+
+    <a class="botao secundario"
+       href="{% url 'listar_projetos' %}">
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}
+
