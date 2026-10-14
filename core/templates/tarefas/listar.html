@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Tarefas{% endblock %}
+
+{% block content %}
+
+<h2>Tarefas cadastradas</h2>
+
+<a class="botao" href="{% url 'criar_tarefa' %}">
+    + Nova Tarefa
+</a>
+
+{% if tarefas %}
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Prioridade</th>
+            <th>Projeto</th>
+            <th>Concluída?</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for tarefa in tarefas %}
+        <tr>
+            <td>{{ tarefa.titulo }}</td>
+            <td>{{ tarefa.get_prioridade_display }}</td>
+            <td>{{ tarefa.projeto.nome }}</td>
+
+            <td>
+                {% if tarefa.concluido %}
+                    Sim
+                {% else %}
+                    Não
+                {% endif %}
+            </td>
+
+            <td>
+                <div class="acoes">
+                    <a class="botao"
+                       href="{% url 'editar_tarefa' tarefa.pk %}">
+                        Editar
+                    </a>
+
+                    <a class="botao perigo"
+                       href="{% url 'excluir_tarefa' tarefa.pk %}">
+                        Excluir
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>Nenhuma tarefa cadastrada ainda.</p>
+{% endif %}
+
+{% endblock %}
+

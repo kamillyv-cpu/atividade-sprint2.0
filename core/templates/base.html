@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestão de Projetos{% endblock %}</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #263238;
+        }
+
+        header {
+            background: #263b59;
+            color: white;
+            padding: 20px 7%;
+        }
+
+        header h1 {
+            margin: 0 0 15px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .painel {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #315f9b;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .perigo {
+            background: #b83232;
+        }
+
+        .secundario {
+            background: #687786;
+        }
+
+        input:not([type="checkbox"]),
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 7px 0 15px;
+            border: 1px solid #ccd2da;
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"] {
+            margin: 10px 5px 15px 0;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #edf1f6;
+        }
+
+        .mensagem {
+            padding: 12px;
+            background: #e1f5e8;
+            color: #205b37;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .erro {
+            color: #b83232;
+        }
+
+        .acoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 0 12px;
+            }
+
+            .painel {
+                padding: 15px;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gestão de Projetos e Tarefas</h1>
+
+    <nav>
+        <a href="{% url 'listar_projetos' %}">Projetos</a>
+        <a href="{% url 'criar_projeto' %}">Novo Projeto</a>
+        <a href="{% url 'listar_tarefas' %}">Tarefas</a>
+        <a href="{% url 'criar_tarefa' %}">Nova Tarefa</a>
+    </nav>
+</header>
+
+<main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="painel">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+</body>
+</html>
