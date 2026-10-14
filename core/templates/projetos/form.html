@@ -9,19 +9,41 @@
 <form method="POST">
     {% csrf_token %}
 
-    {{ form.non_field_errors }}
+    <label for="id_nome">Nome do projeto:</label>
+    <input
+        type="text"
+        name="nome"
+        id="id_nome"
+        maxlength="100"
+        value="{{ form.nome.value|default_if_none:'' }}"
+        placeholder="Digite o nome do projeto"
+        required
+    >
 
-    {% for campo in form %}
-        <p>
-            {{ campo.label_tag }}<br>
-            {{ campo }}
-            {% for erro in campo.errors %}
-                <span class="erro">{{ erro }}</span>
-            {% endfor %}
-        </p>
-    {% endfor %}
+    <label for="id_descricao">Descrição:</label>
+    <textarea
+        name="descricao"
+        id="id_descricao"
+        rows="5"
+        placeholder="Digite a descrição do projeto"
+        required
+    >{{ form.descricao.value|default_if_none:'' }}</textarea>
 
-    <button class="botao" type="submit">Salvar</button>
+    <label for="id_data_inicio">Data de início:</label>
+    <input
+        type="date"
+        name="data_inicio"
+        id="id_data_inicio"
+        value="{{ form.data_inicio.value|default_if_none:'' }}"
+        required
+    >
+
+    {% if form.errors %}
+        <p class="erro">Verifique os campos preenchidos.</p>
+        {{ form.errors }}
+    {% endif %}
+
+    <button class="botao" type="submit">Salvar projeto</button>
 
     <a class="botao secundario"
        href="{% url 'listar_projetos' %}">

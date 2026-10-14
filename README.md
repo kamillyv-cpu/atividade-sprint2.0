@@ -10,4 +10,10 @@ Cadastro e gerenciamento de tarefas vinculadas aos projetos.
 
 Controle de prioridade e conclusão das tarefas.
 
+Tecnologias utilizadas:
+- Python
+- Django
+- Html
+- Css
+
 
